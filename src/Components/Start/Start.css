@@ -1,0 +1,69 @@
+.playerInput{
+
+    color: aliceblue;
+    margin-top: 40px;
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    margin-left: 25%;
+ 
+
+}
+
+.playerInput label {
+    margin-right: 50px;
+    color: white;
+    font-size: 30px;
+    font-family:'Courier New', Courier, monospace;
+}
+
+.playerInput input{
+    width: 25%;
+    height: 35px;
+    border-radius: 25px;
+    font-size: 25px;
+    font-weight: 200;
+    outline: none;
+}
+.playerInput select {
+    width: 5%;
+    height: 35px;
+    border-radius: 25px;
+    margin-left: 10px;
+    font-weight: 300;
+}
+.gameSetup h1{
+    color:antiquewhite;
+}
+
+.gameSetup button{
+    margin-top: 30px;
+    border-radius: 25px;
+    background: #364156;
+    width: 50%;
+    height: 35px;
+    color: white;
+    font-size: 20px;
+}
+
+.gameSetup button:hover{
+    background: #1b2a41 ;
+
+}
+
+
+.gridSize {
+    margin-top: 30px;
+    color: white;
+    font-size: 30px;
+    font-family:'Courier New', Courier, monospace;
+}
+
+.gridSize input{
+    width: 5%;
+    height: 35px;
+    border-radius: 15px;
+    font-size: 20px;
+    margin-left: 25px;
+}
+
