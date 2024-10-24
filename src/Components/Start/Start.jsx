@@ -7,8 +7,8 @@ const Start = () => {
   const [secondPlayer, setSecondPlayer] = useState("");
   const [gridSize, setGridSize] = useState(3);
   const [isStarted, setIsStarted] = useState(false);
-  const [firstSymbol, setFirstSymbol] = useState("X");
-  const [secondSymbol, setSecondSymbol] = useState("O");
+  const [firstSymbol, setFirstSymbol] = useState("x");
+  const [secondSymbol, setSecondSymbol] = useState("o");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const Start = () => {
         secondPlayer={secondPlayer}
         gridSize={gridSize}
         firstSymbol={firstSymbol}
-        secondSymbol={firstSymbol === "X" ? "O" : "X"}
+        secondSymbol={firstSymbol === "x" ? "o" : "x"}
       />
     );
 
@@ -45,8 +45,8 @@ const Start = () => {
            onChange={(e) => setFirstSymbol(e.target.value)}
           
            >
-            <option value="X">X</option>
-            <option value="O">O</option>
+            <option value="x">X</option>
+            <option value="o">O</option>
           </select>
         </div>
 
