@@ -8,7 +8,7 @@ const Start = () => {
   const [gridSize, setGridSize] = useState(3);
   const [isStarted, setIsStarted] = useState(false);
   const [firstSymbol, setFirstSymbol] = useState("x");
-  const [secondSymbol, setSecondSymbol] = useState("o");
+  // const [secondSymbol, setSecondSymbol] = useState("o");
 
   const handleSubmit = (e) => {
     e.preventDefault();

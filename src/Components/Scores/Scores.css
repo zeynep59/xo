@@ -1,0 +1,14 @@
+.scores{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    gap: 20px;
+}
+
+.reset{
+    color: white;
+    background-color: #1b2a41;
+    ;
+}

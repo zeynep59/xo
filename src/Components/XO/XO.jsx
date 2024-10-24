@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import o from "../Assets/o.png";
 import x from "../Assets/x.png";
+import Scores from "../Scores/Scores";
 import Square from "../Square/Square";
 import "./XO.css";
-
-
 
 const XO = ({
   gridSize,
@@ -16,36 +15,49 @@ const XO = ({
   const [board, setBoard] = React.useState(
     Array(gridSize * gridSize).fill(null)
   );
-  const [currentPlayer, setCurrentPlayer] = React.useState(firstPlayer);
-  const [firsPlayerScore, setFirstPlayerScore] = useState(0);
-  const [secondPlayerScore, setSecondPlayerScore] = useState(0);
+  const [isGameOver, setIsGameOver] = React.useState(false);
 
   let data = Array(gridSize * gridSize).fill("");
-  let [lock, setLock] = useState(false);
   let [count, setCount] = useState(0);
 
-const toggle = (e, num) => {
-  const updatedBoard = [...board];
-  if(lock || board[num]!==null){
-    return 0;
-  }
-  if((count%2===0 && firstSymbol==="x") || (count%2!==0 && secondSymbol==="x")){
-    e.target.innerHTML  = `<img src = '${x}'`;
-    data[num] = "x";
-    updatedBoard[num] = "x";
-  }
-  else{
-    e.target.innerHTML  = `<img src = '${o}'`;
-    data[num] = "o";
-    updatedBoard[num] = "o";
-  }
-  setBoard(updatedBoard);
-  setCount(++count);
+  const toggle = (e, num) => {
+    const updatedBoard = [...board];
+    if (board[num] !== null) {
+      return 0;
+    }
+    if (
+      (count % 2 === 0 && firstSymbol === "x") ||
+      (count % 2 !== 0 && secondSymbol === "x")
+    ) {
+      e.target.innerHTML = `<img src = '${x}'`;
+      data[num] = "x";
+      updatedBoard[num] = "x";
+    } else {
+      e.target.innerHTML = `<img src = '${o}'`;
+      data[num] = "o";
+      updatedBoard[num] = "o";
+    }
+    setBoard(updatedBoard);
+    setCount(++count);
+    isBoardFilled(updatedBoard);
+  };
 
-}
+  const isBoardFilled = (board) => {
+    if (!board.includes(null) && !board.includes("")) {
+      setIsGameOver(true);
+    }
+  };
 
-
-
+  if (isGameOver)
+    return (
+      <Scores
+        firstPlayer={firstPlayer}
+        secondPlayer={secondPlayer}
+        firstSymbol={firstSymbol}
+        board={board}
+        gridSize = {gridSize}
+      />
+    );
 
   return (
     <div className="container">
@@ -54,7 +66,7 @@ const toggle = (e, num) => {
           <h2>{firstPlayer} </h2>
           {/* <h2>{firstSymbol}</h2> */}
         </div>
-          <h1> Vs </h1>
+        <h1> Vs </h1>
         <div>
           <h2>{secondPlayer} </h2>
           {/* <h2>{secondSymbol}</h2> */}
@@ -67,13 +79,15 @@ const toggle = (e, num) => {
       >
         {board.map((value, index) => (
           <>
-         <Square value={value} onClick={(e)=>{toggle(e,index)}} />
-          {console.log({value},{index})}
+            <Square
+              value={value}
+              onClick={(e) => {
+                toggle(e, index);
+              }}
+            />
           </>
         ))}
-        
       </div>
-      <button className="reset">Play Again</button>
     </div>
   );
 };
