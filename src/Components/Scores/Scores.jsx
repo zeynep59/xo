@@ -17,7 +17,7 @@ const Scores = ({
   const [isReset, setIsReset] = useState(false);
   const [allHighScores, setAllHighScores] = useState([...highScores]);
   const [winners, setWinners] = useState([...highScorePlayers]);
-
+  const [sizeOfGrid, setSizeOfGrid] = useState(3);
 
   const resetGame = () => {
     setIsReset(true);
@@ -26,12 +26,13 @@ const Scores = ({
     
     setAllHighScores((prevScores) => [...prevScores, newHighScore]);
     setWinners((prevWinners) => [...prevWinners, newWinner]);
-
   };
 
   useEffect(() => {
+    setSizeOfGrid(Number(gridSize));
     handleScore();
-  }, [board, ]);
+
+  });
 
   const handleScore = () => {
     let isInHorizontalScore = Array(board.length).fill(false);
@@ -52,8 +53,7 @@ const Scores = ({
       //for the horizontal lines => except the last column + 1 (i+1 % gridSize === 0)
       if (!isInHorizontalScore[index])
         for (let i = index; i < board.length - 1; i++) {
-          if (board[index] === board[i + 1] && (i + 1) % gridSize !== 0) {
-            //!
+          if (board[index] === board[i + 1] && (i + 1) % sizeOfGrid !== 0) {
             isInHorizontalScore[i + 1] = true;
             countHorizontal++;
           } else {
@@ -63,9 +63,10 @@ const Scores = ({
 
       // for the vertical lines => index====index+gridSize
       if (!isInVerticalScore[index])
-        for (let i = index; i < board.length - gridSize; i += gridSize) {
-          if (board[index] === board[i + gridSize]) {
-            isInVerticalScore[i + gridSize] = true;
+        for (let i = index; i < board.length - sizeOfGrid; i += sizeOfGrid) {
+      const next = Number(i)+Number(gridSize);
+          if (board[i] === board[next]) {
+            isInVerticalScore[next] = true;
             countVertical++;
           } else {
             break;
@@ -76,28 +77,30 @@ const Scores = ({
       if (!isInRightCrosswiseScore[index])
         for (
           let i = index;
-          i < board.length - gridSize - 1;
-          i += gridSize + 1
+          i < board.length - sizeOfGrid - 1;
+          i += sizeOfGrid + 1
         ) {
           if (
-            board[index] === board[i + gridSize + 1] &&
-            (i + 1) % gridSize !== 0
+            board[index] === board[i + sizeOfGrid + 1] &&
+            (i + 1) % sizeOfGrid !== 0
           ) {
-            isInRightCrosswiseScore[i + gridSize + 1] = true;
+            isInRightCrosswiseScore[i + sizeOfGrid + 1] = true;
             countRightCrosswise++;
           } else {
             break;
           }
         }
+
+
       //for the crosswise lines in the left direction   => index === index + gridSize-1
       if (!isInLeftCrosswiseScore[index])
         for (
           let i = index;
-          i < board.length - gridSize + 1;
-          i += gridSize - 1
+          i < board.length - sizeOfGrid + 1;
+          i += sizeOfGrid - 1
         ) {
-          if (board[index] === board[i + gridSize - 1] && i % gridSize !== 0) {
-            isInLeftCrosswiseScore[i + gridSize - 1] = true;
+          if (board[index] === board[i + sizeOfGrid - 1] && i % sizeOfGrid !== 0) {
+            isInLeftCrosswiseScore[i + sizeOfGrid - 1] = true;
             countLeftCrosswise++;
           } else {
             break;
@@ -136,7 +139,7 @@ const Scores = ({
             <h1> {firsPlayerScore}</h1>
 
             </div>
-            <div className="score">         
+            <div className="score">
                    <h1 className="username">{secondPlayer} </h1>
                    <h1> {secondPlayerScore}</h1>
 

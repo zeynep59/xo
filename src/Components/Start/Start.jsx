@@ -10,6 +10,7 @@ const Start = ({highScorePlayersProp,  highScoresProp }) => {
   const [firstSymbol, setFirstSymbol] = useState("x");
  const [highScores, setHighScores] = useState([]);
  const [highScorePlayers, setHighScorePlayers] = useState([]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (firstPlayer && secondPlayer) {
@@ -87,6 +88,8 @@ const Start = ({highScorePlayersProp,  highScoresProp }) => {
             type="number"
             value={gridSize}
             onChange={(e) => setGridSize(e.target.value)}
+            min={3}
+            max={10}
           />
         </div>
 
