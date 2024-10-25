@@ -8,19 +8,30 @@ const Scores = ({
   firstSymbol,
   board,
   gridSize,
+  highScores,
+  highScorePlayers
+
 }) => {
   const [firsPlayerScore, setFirstPlayerScore] = useState(0);
   const [secondPlayerScore, setSecondPlayerScore] = useState(0);
   const [isReset, setIsReset] = useState(false);
+  const [allHighScores, setAllHighScores] = useState([...highScores]);
+  const [winners, setWinners] = useState([...highScorePlayers]);
+
 
   const resetGame = () => {
     setIsReset(true);
+    let newHighScore = firsPlayerScore>secondPlayerScore ? firsPlayerScore:secondPlayerScore;
+    let newWinner = firsPlayerScore>secondPlayerScore ? firstPlayer : secondPlayer;
+    
+    setAllHighScores((prevScores) => [...prevScores, newHighScore]);
+    setWinners((prevWinners) => [...prevWinners, newWinner]);
+
   };
 
-useEffect ( () => {
+  useEffect(() => {
     handleScore();
-});
-
+  }, [board, ]);
 
   const handleScore = () => {
     let isInHorizontalScore = Array(board.length).fill(false);
@@ -43,14 +54,14 @@ useEffect ( () => {
         for (let i = index; i < board.length - 1; i++) {
           if (board[index] === board[i + 1] && (i + 1) % gridSize !== 0) {
             //!
-            isInHorizontalScore[i+1] = true;
+            isInHorizontalScore[i + 1] = true;
             countHorizontal++;
           } else {
             break;
           }
         }
 
-     // for the vertical lines => index====index+gridSize
+      // for the vertical lines => index====index+gridSize
       if (!isInVerticalScore[index])
         for (let i = index; i < board.length - gridSize; i += gridSize) {
           if (board[index] === board[i + gridSize]) {
@@ -68,14 +79,16 @@ useEffect ( () => {
           i < board.length - gridSize - 1;
           i += gridSize + 1
         ) {
-          if (board[index] === board[i + gridSize + 1] && (i+1) % gridSize !== 0) {
+          if (
+            board[index] === board[i + gridSize + 1] &&
+            (i + 1) % gridSize !== 0
+          ) {
             isInRightCrosswiseScore[i + gridSize + 1] = true;
             countRightCrosswise++;
-
           } else {
             break;
           }
-         }
+        }
       //for the crosswise lines in the left direction   => index === index + gridSize-1
       if (!isInLeftCrosswiseScore[index])
         for (
@@ -83,7 +96,7 @@ useEffect ( () => {
           i < board.length - gridSize + 1;
           i += gridSize - 1
         ) {
-          if (board[index] === board[i + gridSize - 1] && i%gridSize!==0) {
+          if (board[index] === board[i + gridSize - 1] && i % gridSize !== 0) {
             isInLeftCrosswiseScore[i + gridSize - 1] = true;
             countLeftCrosswise++;
           } else {
@@ -109,28 +122,30 @@ useEffect ( () => {
 
     setFirstPlayerScore(firstScore);
     setSecondPlayerScore(secondScore);
+    
+   
   };
 
-
-
-
-
-
-
-   if (isReset) return( <Start />);
+  if (isReset) return <Start highScoresProp={allHighScores} highScorePlayersProp={winners}/>;
 
   return (
     <div>
-      <div className="scores">
-        <h1>{firstPlayer} - {firsPlayerScore}</h1>
-        <h1>{secondPlayer} - {secondPlayerScore} </h1>
-      </div>
+        <div className="scores">
+            <div className="score">
+            <h1 className="username">{firstPlayer} </h1>
+            <h1> {firsPlayerScore}</h1>
 
-      <button className="reset" onClick={resetGame}>
-        Play Again
-      </button>
+            </div>
+            <div className="score">         
+                   <h1 className="username">{secondPlayer} </h1>
+                   <h1> {secondPlayerScore}</h1>
+
+            </div>
+        </div>
+        <button className="reset" onClick={resetGame}>Play Again</button>
     </div>
-  );
+);
+
 };
 
 export default Scores;

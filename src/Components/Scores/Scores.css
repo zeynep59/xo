@@ -1,14 +1,47 @@
-.scores{
+.scores {
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
-    gap: 20px;
+    font-size: 30px;
+    gap: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
-.reset{
+.scores h1{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.username{
+    color: aquamarine;
+}
+
+.score{
+    width: 70%;
+    background-color: rgba(27, 42, 65, 0.8);
+    justify-content: center;
+    align-items: center;
+
+
+}
+.reset {
     color: white;
     background-color: #1b2a41;
-    ;
+    font-size: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
+
+.reset:hover {
+    background-color: #293b52;
+}
+

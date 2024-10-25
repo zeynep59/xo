@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import XO from "../XO/XO";
 import "./Start.css";
 
-const Start = () => {
+const Start = ({highScorePlayersProp,  highScoresProp }) => {
   const [firstPlayer, setFirstPlayer] = useState("");
   const [secondPlayer, setSecondPlayer] = useState("");
   const [gridSize, setGridSize] = useState(3);
   const [isStarted, setIsStarted] = useState(false);
   const [firstSymbol, setFirstSymbol] = useState("x");
-  // const [secondSymbol, setSecondSymbol] = useState("o");
+ const [highScores, setHighScores] = useState([]);
+ const [highScorePlayers, setHighScorePlayers] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +19,17 @@ const Start = () => {
       alert("fill the fields");
     }
   };
+
+
+  useEffect(()=>{
+    if(highScorePlayers!==null){
+      setHighScorePlayers(highScorePlayersProp);
+      setHighScores(highScoresProp);
+    }
+   
+  }, [highScorePlayersProp, highScorePlayers, highScoresProp, highScores])
+
+
   if (isStarted)
     return (
       <XO
@@ -26,10 +38,13 @@ const Start = () => {
         gridSize={gridSize}
         firstSymbol={firstSymbol}
         secondSymbol={firstSymbol === "x" ? "o" : "x"}
+        highScores = {highScores}
+        highScorePlayers = {highScorePlayers}
       />
     );
 
   return (
+  <>
     <div className="gameSetup">
       <h1>Game Setup</h1>
       <form onSubmit={handleSubmit}>
@@ -71,6 +86,16 @@ const Start = () => {
         <button type="submit">Start Game</button>
       </form>
     </div>
+
+    <div className="bestPlayers">
+      <h2>High Scores</h2>
+      
+      {highScores.map((value, index) => (
+  <h4 key={index}>{value} - {highScorePlayers[index]}</h4>
+))}
+
+    </div>
+    </>
   );
 };
 
