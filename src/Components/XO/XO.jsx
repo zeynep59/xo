@@ -12,7 +12,7 @@ const XO = ({
   firstSymbol,
   secondSymbol,
   highScores,
-  highScorePlayers
+  highScorePlayers,
 }) => {
   const [board, setBoard] = React.useState(
     Array(gridSize * gridSize).fill(null)
@@ -52,17 +52,16 @@ const XO = ({
 
   if (isGameOver)
     return (
-  <>
-      {highScorePlayers} - {highScores}
-      <Scores
-        firstPlayer={firstPlayer}
-        secondPlayer={secondPlayer}
-        firstSymbol={firstSymbol}
-        board={board}
-        gridSize = {gridSize}
-        highScores = {highScores}
-        highScorePlayers = {highScorePlayers}
-      />
+      <>
+        <Scores
+          firstPlayer={firstPlayer}
+          secondPlayer={secondPlayer}
+          firstSymbol={firstSymbol}
+          board={board}
+          gridSize={gridSize}
+          highScores={highScores}
+          highScorePlayers={highScorePlayers}
+        />
       </>
     );
 
@@ -70,11 +69,15 @@ const XO = ({
     <div className="container">
       <div className="title">
         <div>
-          <h2>{firstPlayer}({firstSymbol}) </h2>
+          <h2>
+            {firstPlayer}({firstSymbol}){" "}
+          </h2>
         </div>
         <h1> Vs </h1>
         <div>
-          <h2>{secondPlayer}({secondSymbol}) </h2>
+          <h2>
+            {secondPlayer}({secondSymbol}){" "}
+          </h2>
         </div>
       </div>
 
