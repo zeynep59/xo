@@ -10,7 +10,6 @@ const Start = ({highScorePlayersProp,  highScoresProp }) => {
   const [firstSymbol, setFirstSymbol] = useState("x");
  const [highScores, setHighScores] = useState([]);
  const [highScorePlayers, setHighScorePlayers] = useState([]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (firstPlayer && secondPlayer) {
@@ -19,13 +18,21 @@ const Start = ({highScorePlayersProp,  highScoresProp }) => {
       alert("fill the fields");
     }
   };
-
+  const topScores = highScores.map((score, index) => ({
+      name: highScorePlayers[index],
+      score: score
+    
+  }))
+  topScores.sort((a, b) => b.score - a.score);
+  const topFivePlayers = topScores.slice(0,5);
 
   useEffect(()=>{
     if(highScorePlayers!==null){
       setHighScorePlayers(highScorePlayersProp);
       setHighScores(highScoresProp);
     }
+
+
    
   }, [highScorePlayersProp, highScorePlayers, highScoresProp, highScores])
 
@@ -90,8 +97,8 @@ const Start = ({highScorePlayersProp,  highScoresProp }) => {
     <div className="bestPlayers">
       <h2>High Scores</h2>
       
-      {highScores.map((value, index) => (
-  <h4 key={index}>{value} - {highScorePlayers[index]}</h4>
+      {topFivePlayers.map((player,index ) => (
+  <h4 key={index}>{player.name} - {player.score}</h4>
 ))}
 
     </div>

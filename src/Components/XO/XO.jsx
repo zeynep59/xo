@@ -70,11 +70,11 @@ const XO = ({
     <div className="container">
       <div className="title">
         <div>
-          <h2>{firstPlayer} </h2>
+          <h2>{firstPlayer}({firstSymbol}) </h2>
         </div>
         <h1> Vs </h1>
         <div>
-          <h2>{secondPlayer} </h2>
+          <h2>{secondPlayer}({secondSymbol}) </h2>
         </div>
       </div>
 
